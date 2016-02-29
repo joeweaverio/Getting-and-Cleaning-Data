@@ -110,11 +110,12 @@ library(data.table)
     
 # Merges the training and the test sets to create one data set.
     mMainDataSet <- rbind(testDataSet, traingDataSet)
-    inx <- order(mMainDataSet$ID, na.last = T)
-    ordMainDataSet <- mMainDataSet[inx]
+    ordMainDataSet <- ordMainDataSet[order(ordMainDataSet$ID),]
 
-#Extracts only the measurements on the mean and standard deviation for each measurement.    
-    only_mean_std <- ordMainDataSet[,c(1,2,grep("std", colnames(ordMainDataSet)), grep("mean", colnames(ordMainDataSet)))]
+#Extracts only the measurements on the mean and standard deviation for each measurement.
+    
+    extract <- as.data.frame(ordMainDataSet)
+    only_mean_std <- extract[,c(1,2,grep("std", colnames(extract)), grep("mean", colnames(extract)))]
     saveCSV(only_mean_std,"only_mean_std.csv") 
 
 # Uses descriptive activity names to name the activities in the data set
